@@ -1,7 +1,10 @@
 import os
 
 class Config:
-    pass
+    '''
+    Parent config class for the app configurations.
+    '''
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 class ProdConfig(Config):
@@ -10,6 +13,7 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     DEBUG = True
+
 
 config_options = {
     'development': DevConfig,
