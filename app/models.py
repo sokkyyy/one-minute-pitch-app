@@ -19,7 +19,7 @@ class Pitch(db.Model):
     '''
     Class to define the pithces made in the app
     '''
-    __tablename__ = 'pithes'
+    __tablename__ = 'pitches'
 
     id = db.Column(db.Integer, primary_key=True)
     pitch_category = db.Column(db.String)
