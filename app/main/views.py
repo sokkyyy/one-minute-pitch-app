@@ -1,9 +1,9 @@
-from flask import render_template,abort,redirect,url_for
+from flask import render_template,abort,redirect,url_for,request
 from . import main
 from flask_login import login_required # For the routes that need authentication
 from ..models import Pitch,User
 from .forms import UpdateProfile
-from .. import db
+from .. import db,photos
 
 
 @main.route('/')
@@ -42,3 +42,13 @@ def update_profile(uname):
     
     return render_template('profile/update.html',update_form=form)
 
+@main.route('/user/<uname>/update/pic', methods=['GET','POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username=uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
