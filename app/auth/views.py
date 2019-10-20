@@ -4,7 +4,7 @@ from ..models import User
 from .forms import RegistrationForm,LoginForm
 from .. import db
 from . import auth
-
+from ..email import mail_message
 
 @auth.route('/register',methods=['GET','POST'])
 def register():
@@ -15,6 +15,9 @@ def register():
         user = User(username=form.username.data, email=form.email.data,password=form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        mail_message("Welcome to OnePitch",'email/welcome_user',user.email,user=user)
+        
         return redirect(url_for('auth.login'))
     
     title = "New Account"
