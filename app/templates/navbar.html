@@ -25,5 +25,15 @@
           </div>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+          <li style="color:black; padding: 15px;">{{current_user.username}}</li>
+          <li><a href="{{url_for('auth.logout')}}">Log Out</a></li>
+        {% else %}
+          <li><a href="{{url_for('auth.login')}}">Login</a></li>
+        {% endif%}
+      </ul>
+      
     </div>
 </nav>
