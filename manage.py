@@ -12,9 +12,21 @@ manager = Manager(app)
 manager.add_command('db',MigrateCommand)
 manager.add_command('server',Server)
 
+@manager.command
+def test():
+    '''
+    Running unittests.
+    '''
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
 @manager.shell
 def make_shell_context():
     return dict(app=app, db=db, User=User, Pitch=Pitch)
+
+
 
 if __name__ == '__main__':
     manager.run()
