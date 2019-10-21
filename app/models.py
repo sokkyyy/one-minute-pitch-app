@@ -77,6 +77,7 @@ class Pitch(db.Model):
         Function that will help in debugging
         '''
         return f'User {self.name}'
+    
 
 
 
@@ -90,6 +91,16 @@ class Comment(db.Model):
     pitch_comment = db.Column(db.String)
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
 
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    
+    @classmethod
+    def get_comments(cls,pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+        return comments 
 
 
     

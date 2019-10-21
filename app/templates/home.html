@@ -5,7 +5,8 @@
 <a href="{{url_for('main.new_pitch')}}">Create A Pitch</a>
 <ul>
     {%for pitch in pitches%}
-     <li>{{pitch.pitch_details}}</li>   
+     <li>{{pitch.pitch_details}}</li>
+     <span><a href="{{url_for('main.comments', pitch_id=pitch.id)}}">{{pitch.id}}</a></span>   
     {%endfor%}
 </ul>
 {% endblock %}

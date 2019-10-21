@@ -1,8 +1,8 @@
 from flask import render_template,abort,redirect,url_for,request
 from . import main
 from flask_login import login_required,current_user # For the routes that need authentication
-from ..models import Pitch,User
-from .forms import UpdateProfile,PitchForm
+from ..models import Pitch,User,Comment
+from .forms import UpdateProfile,PitchForm,CommentForm
 from .. import db,photos
 
 
@@ -78,3 +78,17 @@ def new_pitch():
     
     title = "New Pitch"
     return render_template('new_pitch.html',title=title, pitch_form=form)
+
+@main.route('/comments/<int:pitch_id>',methods=['GET','POST'])
+@login_required
+def comments(pitch_id):
+    #comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+    pitch= Pitch.query.filter_by(id=pitch_id).first()
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        new_comment = Comment(pitch_comment=form.comment.data, pitch=pitch)
+        new_comment.save_comment()
+
+    title = "Comments"
+    return render_template("comments.html",title=title,comment_form=form)
