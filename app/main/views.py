@@ -1,14 +1,17 @@
 from flask import render_template,abort,redirect,url_for,request
 from . import main
-from flask_login import login_required # For the routes that need authentication
+from flask_login import login_required,current_user # For the routes that need authentication
 from ..models import Pitch,User
-from .forms import UpdateProfile
+from .forms import UpdateProfile,PitchForm
 from .. import db,photos
 
 
 @main.route('/')
 def index():
-    return render_template('home.html')
+    pitches = Pitch.query.all()
+    title = "Home - One Minute Pitch"
+
+    return render_template('home.html',title=title,pitches=pitches)
 
 
 @main.route('/user/<uname>')
@@ -52,3 +55,26 @@ def update_pic(uname):
         user.pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
+@main.route('/pitch/new/',methods=['GET','POST'])
+@login_required
+def new_pitch():
+    form = PitchForm()
+
+    if form.validate_on_submit():
+        category = form.category.data
+        pitch_details = form.details.data
+        upvote = 0
+        downvote = 0
+
+        #Pitch Instance
+        new_pitch = Pitch(pitch_category=category,pitch_details=pitch_details,upvote=upvote,downvote=downvote,user=current_user)
+
+        #Save pitch
+        new_pitch.save_pitch()
+
+        return redirect(url_for('.index'))
+    
+    title = "New Pitch"
+    return render_template('new_pitch.html',title=title, pitch_form=form)

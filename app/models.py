@@ -56,10 +56,44 @@ class Pitch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pitch_category = db.Column(db.String)
     pitch_details = db.Column(db.String)
+    upvote = db.Column(db.Integer)
+    downvote = db.Column(db.Integer)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
 
-    def __repr__(self): # CHECK IF THIS IS APPROPRIATE
+    def save_pitch(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    @classmethod
+    def get_pitch(cls,id):
+        pitches = Pitch.query.filter_by(user_id=id).all()
+        return pitches
+
+
+    def __repr__(self):
+        '''
+        Function that will help in debugging
+        '''
+        return f'User {self.name}'
+
+
+
+
+class Comment(db.Model):
+    '''
+    Class to define comments for pitches.
+    '''
+    __tablename__= 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    pitch_comment = db.Column(db.String)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+
+
+    
+    def __repr__(self): 
         '''
         Function that will help in debugging
         '''

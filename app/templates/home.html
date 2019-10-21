@@ -2,5 +2,10 @@
 
 
 {% block content %}
-    <p>Hello Pitch App</p>
+<a href="{{url_for('main.new_pitch')}}">Create A Pitch</a>
+<ul>
+    {%for pitch in pitches%}
+     <li>{{pitch.pitch_details}}</li>   
+    {%endfor%}
+</ul>
 {% endblock %}
