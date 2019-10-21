@@ -1,13 +1,24 @@
 .holder{
     margin: 20px;
 }
-
+body {
+    background-color: #DFE0E2;
+}
 .cardDisplay {
     display: flex;
+    margin-top: 10px;
 }
-.image {
 
-}
 .pitchDetails {
-
+    margin-left: 20px;
+}
+.username {
+    font-size: 25px;
+}
+.footer {
+    padding-left: 150px;
+    padding-bottom: 10px;
+}
+.footer a {
+    margin: 10px;
 }

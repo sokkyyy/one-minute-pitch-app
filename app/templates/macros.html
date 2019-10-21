@@ -13,11 +13,14 @@
                 </div>
             
                 <div class="col-sm-6 pitchDetails" >
-                    <p>Author: {{pitch.user.username}}</p>
+                    
+                    <p>@<a href="#" class="username">{{pitch.user.username}}</a></p>
                     <hr>
-                    <p>Category: {{pitch.pitch_category}}</p>
-                    <hr>
-                    <p>Posted on: {{ pitch.posted }}</p>
+                    <small>
+                        <p>Category: {{pitch.pitch_category|capitalize}}</p>
+                        <hr>
+                        <p>Posted on: {{ pitch.posted.strftime('%d/%m/%Y') }}</p>
+                    </small>
                 </div>
             </div>
 
@@ -26,10 +29,16 @@
                 <p>{{pitch.pitch_details}}</p>
             </div>
             <hr>
-            <div class="col-sm-12">
-                <span><a href="{{url_for('main.comments', pitch_id=pitch.id)}}">comment</a></span>
-                <span><a href="{{url_for('main.vote', pitch_id=pitch.id,action='like')}}">{{pitch.upvote}}</a></span>
-                <span><a href="{{url_for('main.vote', pitch_id=pitch.id,action='dislike')}}">{{pitch.downvote}}</a></span>
+            <div class="col-sm-12 footer">
+                <a class="btn btn-primary" href="{{url_for('main.comments', pitch_id=pitch.id)}}">
+                    <i class="fas fa-comments"></i>
+                </a>
+                <a class="btn btn-success" href="{{url_for('main.vote', pitch_id=pitch.id,action='like')}}">
+                    <i class="fas fa-thumbs-up"><small style="margin-left: 5px;">{{pitch.upvote}}</small></i>
+                </a>
+                <a class="btn btn-danger" href="{{url_for('main.vote', pitch_id=pitch.id,action='dislike')}}">
+                    <i class="fas fa-thumbs-down"><small style="margin-left: 5px;">{{pitch.downvote}}</small></i>
+                </a>
             </div>
         </div>
     {%endfor%}
