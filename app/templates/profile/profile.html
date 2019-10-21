@@ -34,6 +34,11 @@
                 </form>
             {% endif%}
         </div>
+        <div>
+            {%for pitch in pitches%}
+             {{pitch.pitch_details}}
+            {%endfor%}
+        </div>
     </div>
 </div>
 {% endblock %}

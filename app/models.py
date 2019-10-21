@@ -66,9 +66,28 @@ class Pitch(db.Model):
         db.session.add(self)
         db.session.commit()
     
+    def like_pitch(self):
+        self.upvote += 1
+        self.save_pitch()
+
+    def unlike_pitch(self):
+        self.downvote += 1
+        self.save_pitch()
+    
+    @classmethod
+    def get_pitches(cls,id):
+        pitches = Pitch.query.filter_by(user_id=id).all()
+        return pitches
+
+
     @classmethod
     def get_pitch(cls,id):
-        pitches = Pitch.query.filter_by(user_id=id).all()
+        pitch = Pitch.query.filter_by(id=id).first()
+        return pitch
+    
+    @classmethod
+    def get_pitch_category(cls,category):
+        pitches = Pitch.query.filter_by(pitch_category=category).all()
         return pitches
 
 
@@ -76,7 +95,7 @@ class Pitch(db.Model):
         '''
         Function that will help in debugging
         '''
-        return f'User {self.name}'
+        return f'Pitch {self.id}'
     
 
 
@@ -108,4 +127,4 @@ class Comment(db.Model):
         '''
         Function that will help in debugging
         '''
-        return f'User {self.name}'
+        return f'Comment {self.pitch_comment}'

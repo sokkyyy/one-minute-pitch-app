@@ -18,11 +18,12 @@ def index():
 @login_required
 def profile(uname):
     user = User.query.filter_by(username=uname).first()
+    pitches = Pitch.get_pitches(user.id)
 
     if user is None:
         abort(404)
 
-    return render_template('profile/profile.html',user=user)
+    return render_template('profile/profile.html',user=user,pitches=pitches)
 
 @main.route('/user/<uname>/update', methods=['GET','POST'])
 @login_required
@@ -82,7 +83,7 @@ def new_pitch():
 @main.route('/comments/<int:pitch_id>',methods=['GET','POST'])
 @login_required
 def comments(pitch_id):
-    #comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+    comments = Comment.get_comments(pitch_id)
     pitch= Pitch.query.filter_by(id=pitch_id).first()
     form = CommentForm()
 
@@ -90,5 +91,27 @@ def comments(pitch_id):
         new_comment = Comment(pitch_comment=form.comment.data, pitch=pitch)
         new_comment.save_comment()
 
+        return redirect(url_for('.comments',pitch_id=pitch_id))
+
     title = "Comments"
-    return render_template("comments.html",title=title,comment_form=form)
+    return render_template("comments.html",title=title,comment_form=form,comments=comments)
+
+@main.route('/like/<pitch_id>/<action>')
+@login_required
+def vote(pitch_id,action):
+    pitch = Pitch.query.filter_by(id=pitch_id).first()
+
+    if action == 'like':
+        pitch.like_pitch()
+    elif action == 'dislike':
+        pitch.unlike_pitch()
+
+    return redirect(url_for('.index'))
+
+@main.route('/category/<pitch_category>')
+def category(pitch_category):
+    pitches = Pitch.get_pitch_category(pitch_category)
+
+    title = f'Pitch Category: {pitch_category}'
+
+    return render_template('category.html',title=title, pitches=pitches)

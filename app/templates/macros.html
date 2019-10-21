@@ -1,0 +1,37 @@
+{% macro displayPitches(pitches) %}
+<div class="col-sm-6">
+    {%for pitch in pitches%}
+        <div class="card holder">
+
+            <div class="cardDisplay">
+                <div class="col-sm-3 img-responsive image">
+                    {% if pitch.user.pic_path%}
+                    <img src="{{url_for('static', filename=pitch.user.pic_path)}}" alt="" class="img-thumbnail rounded-circle move">
+                    {% else%}
+                    <img src="{{url_for('static', filename='photos/avatar.png')}}" alt="" class="img-thumbnail rounded-circle">
+                    {% endif %}
+                </div>
+            
+                <div class="col-sm-6 pitchDetails" >
+                    <p>Author: {{pitch.user.username}}</p>
+                    <hr>
+                    <p>Category: {{pitch.pitch_category}}</p>
+                    <hr>
+                    <p>Posted on: {{ pitch.posted }}</p>
+                </div>
+            </div>
+
+            <hr>
+            <div class="col-sm-12">
+                <p>{{pitch.pitch_details}}</p>
+            </div>
+            <hr>
+            <div class="col-sm-12">
+                <span><a href="{{url_for('main.comments', pitch_id=pitch.id)}}">comment</a></span>
+                <span><a href="{{url_for('main.vote', pitch_id=pitch.id,action='like')}}">{{pitch.upvote}}</a></span>
+                <span><a href="{{url_for('main.vote', pitch_id=pitch.id,action='dislike')}}">{{pitch.downvote}}</a></span>
+            </div>
+        </div>
+    {%endfor%}
+</div>
+{% endmacro%}

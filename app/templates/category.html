@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ {%for pitch in pitches %}
+    {{pitch.pitch_details}}
+ {% endfor %}
+{% endblock%}

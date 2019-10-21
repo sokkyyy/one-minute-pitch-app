@@ -2,5 +2,13 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-    {{wtf.quick_form(comment_form)}}
+     <div>{{wtf.quick_form(comment_form)}}</div>
+    <div>
+        {% for comment in comments %}
+        <div>{{comment.pitch_comment}}</div>
+            
+        {% endfor %}
+    </div>
 {% endblock%}
+
+
