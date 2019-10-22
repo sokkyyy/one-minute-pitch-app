@@ -13,6 +13,7 @@ def register():
 
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data,password=form.password.data)
+        user.pic_path = f'photos/avatar.png'
         db.session.add(user)
         db.session.commit()
 

@@ -24,6 +24,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String())
     pic_path = db.Column(db.String())
     pitches = db.relationship('Pitch',backref='user',lazy='dynamic')
+    comments = db.relationship('Comment',backref='comment_user',lazy='dynamic')
 
     @property
     def password(self):
@@ -108,7 +109,10 @@ class Comment(db.Model):
     __tablename__= 'comments'
     id = db.Column(db.Integer, primary_key=True)
     pitch_comment = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 
 
     def save_comment(self):

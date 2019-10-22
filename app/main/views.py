@@ -4,11 +4,14 @@ from flask_login import login_required,current_user # For the routes that need a
 from ..models import Pitch,User,Comment
 from .forms import UpdateProfile,PitchForm,CommentForm
 from .. import db,photos
+from sqlalchemy import desc
 
 
 @main.route('/')
 def index():
-    pitches = Pitch.query.all()
+    pitches = Pitch.query.order_by(desc('posted')).all() 
+    
+
     title = "Home - One Minute Pitch"
 
     return render_template('home.html',title=title,pitches=pitches)
@@ -21,9 +24,12 @@ def profile(uname):
     pitches = Pitch.get_pitches(user.id)
 
     if user is None:
-        abort(404)
 
-    return render_template('profile/profile.html',user=user,pitches=pitches)
+        abort(404)
+    
+    title = f'Profile: {uname}'
+
+    return render_template('profile/profile.html',title=title, user=user,pitches=pitches)
 
 @main.route('/user/<uname>/update', methods=['GET','POST'])
 @login_required
@@ -88,13 +94,14 @@ def comments(pitch_id):
     form = CommentForm()
 
     if form.validate_on_submit():
-        new_comment = Comment(pitch_comment=form.comment.data, pitch=pitch)
+        new_comment = Comment(pitch_comment=form.comment.data, pitch=pitch, comment_user=current_user)
         new_comment.save_comment()
 
         return redirect(url_for('.comments',pitch_id=pitch_id))
 
     title = "Comments"
-    return render_template("comments.html",title=title,comment_form=form,comments=comments)
+    return render_template("comments.html",title=title,comment_form=form, pitch=pitch, comments=comments)
+
 
 @main.route('/like/<pitch_id>/<action>')
 @login_required
@@ -107,6 +114,7 @@ def vote(pitch_id,action):
         pitch.unlike_pitch()
 
     return redirect(url_for('.index'))
+
 
 @main.route('/category/<pitch_category>')
 def category(pitch_category):

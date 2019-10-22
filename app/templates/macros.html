@@ -5,11 +5,7 @@
 
             <div class="cardDisplay">
                 <div class="col-sm-3 img-responsive image">
-                    {% if pitch.user.pic_path%}
                     <img src="{{url_for('static', filename=pitch.user.pic_path)}}" alt="" class="img-thumbnail rounded-circle move">
-                    {% else%}
-                    <img src="{{url_for('static', filename='photos/avatar.png')}}" alt="" class="img-thumbnail rounded-circle">
-                    {% endif %}
                 </div>
             
                 <div class="col-sm-6 pitchDetails" >

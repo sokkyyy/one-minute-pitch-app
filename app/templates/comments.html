@@ -1,13 +1,98 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+<!--Styles Block-->
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/comments.css')}}">
+{% endblock %}
+
+
 {% block content %}
-     <div>{{wtf.quick_form(comment_form)}}</div>
-    <div>
-        {% for comment in comments %}
-        <div>{{comment.pitch_comment}}</div>
+{{ fontawesome_html() }} <!--Font Awesome-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card" style="margin-top: 10px;">
+                <div class="cardDisplay">
+                    <div class="col-sm-3 img-responsive image">
+                        {% if pitch.user.pic_path%}
+                        <img src="{{url_for('static', filename=pitch.user.pic_path)}}" alt="" class="img-thumbnail rounded-circle move">
+                        {% else%}
+                        <img src="{{url_for('static', filename='photos/avatar.png')}}" alt="" class="img-thumbnail rounded-circle">
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-6 pitchDetails" >
+                    
+                        <p>@<a href="#" class="username">{{pitch.user.username}}</a></p>
+                        <hr>
+                        <small>
+                            <p>Category: {{pitch.pitch_category|capitalize}}</p>
+                            <hr>
+                            <p>Posted on: {{ pitch.posted.strftime('%d/%m/%Y') }}</p>
+                        </small>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="col-sm-12">
+                    <p>{{pitch.pitch_details}}</p>
+                </div>
+
+                <hr>
+
+                <div class="col-sm-12 footer">
+                    <a class="btn btn-primary" href="{{url_for('main.comments', pitch_id=pitch.id)}}">
+                        <i class="fas fa-comments"></i>
+                    </a>
+
+                    <a class="btn btn-success" href="{{url_for('main.vote', pitch_id=pitch.id,action='like')}}">
+                        <i class="fas fa-thumbs-up"><small style="margin-left: 5px;">{{pitch.upvote}}</small></i>
+                    </a>
+
+                    <a class="btn btn-danger" href="{{url_for('main.vote', pitch_id=pitch.id,action='dislike')}}">
+                        <i class="fas fa-thumbs-down"><small style="margin-left: 5px;">{{pitch.downvote}}</small></i>
+                    </a>
+                </div>
+            </div>
+
             
-        {% endfor %}
+        </div>
+
+        <div class="col-sm-6">
+            
+            <div class="container" >
+                {{wtf.quick_form(comment_form)}}
+            </div>
+            <hr>
+            <h4 style="text-align: center;">Pitch Comments</h4>
+            <div class="overflow-auto"> <!--Handle overflow through scrolling-->
+            {% if comments|count == 0%}
+            <p class="p-3 mb-2 bg-secondary text-white" style="text-align: center;">No comments for the Pitch. Add yours .</p>
+            {%else %}
+            {% for comment in comments %}
+            <div class="card ">
+                <small>
+                    <div class="container">
+                        <a href='#'>@{{comment.comment_user.username}}:</a>
+                        <span>{{comment.pitch_comment}}</span>
+                        {% if comment.posted %}
+                        <span class="date">{{comment.posted.strftime('%d/%m/%Y %H:%M')}}</span>
+                        {% endif %}
+                    </div>    
+                </small>
+            </div>
+            {% endfor %}
+            {%endif%}
+            </div>
+        </div>
+
+    </div>
+</div>
+    <div></div>
+    <div>
+
     </div>
 {% endblock%}
 

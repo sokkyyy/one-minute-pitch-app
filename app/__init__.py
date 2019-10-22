@@ -6,7 +6,7 @@ from flask_login import LoginManager
 from flask_uploads import UploadSet, configure_uploads,IMAGES
 from flask_mail import Mail
 from flask_fontawesome import FontAwesome
-
+from flask_simplemde import SimpleMDE
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -16,6 +16,7 @@ login_manager.login_view = 'auth.login'
 photos = UploadSet('photos',IMAGES)
 mail = Mail()
 fa = FontAwesome()
+simple = SimpleMDE()
 
 
 def create_app(config_name):
@@ -32,7 +33,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     mail.init_app(app)
     fa.init_app(app)
-    
+    simple.init_app(app)
     #Configure upload set
     configure_uploads(app,photos)
 
