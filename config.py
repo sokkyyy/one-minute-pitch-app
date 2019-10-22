@@ -5,7 +5,6 @@ class Config:
     Parent config class for the app configurations.
     '''
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/pitchapp'
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
     # Email Config
@@ -24,12 +23,18 @@ class Config:
 class ProdConfig(Config):
     pass
 
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/pitchapp_test'
+
 
 class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://samurai:superman7577@localhost/pitchapp'
+
     DEBUG = True
 
 
 config_options = {
     'development': DevConfig,
     'production': ProdConfig,
+    'test':TestConfig,
 }

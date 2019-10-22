@@ -75,7 +75,7 @@
             <div class="card ">
                 <small>
                     <div class="container">
-                        <a href='#'>@{{comment.comment_user.username}}:</a>
+                        <a href="{{url_for('main.profile',uname=comment.comment_user.username)}}">@{{comment.comment_user.username}}:</a>
                         <span>{{comment.pitch_comment}}</span>
                         {% if comment.posted %}
                         <span class="date">{{comment.posted.strftime('%d/%m/%Y %H:%M')}}</span>
