@@ -1,9 +1,10 @@
-.holder{
+.holder {
     margin: 20px;
 }
 body {
     background-color: #DFE0E2;
 }
+    
 .cardDisplay {
     display: flex;
     margin-top: 10px;
@@ -16,9 +17,32 @@ body {
     font-size: 25px;
 }
 .footer {
-    padding-left: 150px;
+    padding-left: 80px;
     padding-bottom: 10px;
 }
 .footer a {
-    margin: 10px;
+    margin-left: 5px;
+ 
+}
+.homeImage {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.welcome {
+    color: white;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 50px;
+}
+.welcomeHeading {
+    font-weight: bold;
+
+}
+.welcomeDescription {
+    font-size: 17px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 30px;
 }

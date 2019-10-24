@@ -1,11 +1,12 @@
 {% macro displayPitches(pitches) %}
-<div class="col-sm-6">
+<div class="container-fluid">
+<div class="row">
     {%for pitch in pitches%}
-        <div class="card holder">
-
+    <div class="col-sm-4">
+        <div class="card holder" >
             <div class="cardDisplay">
                 <div class="col-sm-3 img-responsive image">
-                    <img src="{{url_for('static', filename=pitch.user.pic_path)}}" alt="" class="img-thumbnail rounded-circle move">
+                    <img src="{{url_for('static', filename=pitch.user.pic_path)}}" alt="" class="img-responsive" width="100px" height="150px">
                 </div>
             
                 <div class="col-sm-6 pitchDetails" >
@@ -22,7 +23,9 @@
 
             <hr>
             <div class="col-sm-12">
-                <p>{{pitch.pitch_details}}</p>
+                <small>
+                    <p>{{pitch.pitch_details}}</p>
+                </small>
             </div>
             <hr>
             <div class="col-sm-12 footer">
@@ -37,6 +40,8 @@
                 </a>
             </div>
         </div>
+    </div>
     {%endfor%}
+</div>
 </div>
 {% endmacro%}

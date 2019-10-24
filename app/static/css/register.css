@@ -1,11 +1,14 @@
 body,html {
     height: 100%;
-        font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 
 }
 
 .registerPage {
     height:91%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .register {
     border:1px solid gray;

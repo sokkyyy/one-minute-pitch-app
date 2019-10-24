@@ -1,6 +1,18 @@
 body {
     background-color: #DFE0E2;
 }
+.profilePic {
+    position: relative;
+    width:100%;
+}
+.profileHeader{
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .bio{
     width: 300px;
     height: 150px;

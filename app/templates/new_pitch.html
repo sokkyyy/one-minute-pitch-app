@@ -5,25 +5,28 @@
 {% block styles %}
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='css/new_pitch.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
 {% endblock %}
 
 
 {% block content%}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3"></div>
-            
-            <div class="col-sm-6 pitchForm" >
-                <h4 style="text-align: center;">Create a New Pitch</h4>
-                <hr>
-                <div class="container" style="margin-top: 20px;">
-                    {{wtf.quick_form(pitch_form)}}
-                    
-                </div>
+
+<div class="row">
+    <div class="col-sm-6 formImage" style="background-image:url('/static/navbar.jpeg')"></div>
+    
+    <div class="col-sm-6 pitchForm" >
+        <div class="container containerForm">
+            <h4 style="text-align: center; margin-top: 10px;">NEW PITCH</h4>
+            <hr>
+            <div class="container " style="margin-top: 20px; padding-bottom: 20px;">
+                {{wtf.quick_form(pitch_form)}}
             </div>
-            <div class="col-sm-3"></div>
         </div>
 
     </div>
+</div>
+
+
     
 {% endblock %}

@@ -1,20 +1,21 @@
 
-<nav class="navbar navbar-expand-lg navbar-light navPic" style="background-image:url('/static/navbar.jpeg');border-bottom: 2px solid black;background-position: center;
+
+<nav class="navbar navbar-expand-lg navbar-light navPic" style="background-image:url('/static/preview.jpg');border-bottom: 2px solid black;background-position: center;
 background-repeat: no-repeat;
 background-size: cover;" >
-    <a class="navbar-brand" href="{{url_for('main.index')}}">PITCHES</a>
+    <a class="navbar-brand btn btn-outline-dark" href="{{url_for('main.index')}}" style="font-weight:bold;font-size: 25px;">PITCHES</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="float: right;">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+      <ul class="navbar-nav" style="margin-left: 100px;">
         <li class="nav-item active">
-          <a class="nav-link" href="{{url_for('main.new_pitch')}}">Create A Pitch <span class="sr-only">(current)</span></a>
+          <a class="nav-link btn btn-outline-info create" href="{{url_for('main.new_pitch')}}">Create A Pitch <span class="sr-only">(current)</span></a>
         </li>
         
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown" style="margin-left: 20px;">
+          <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Pitch Categories
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -27,22 +28,22 @@ background-size: cover;" >
       </ul>
     
       {% if current_user.is_authenticated %}
-      <ul class="nav navbar-nav" style="margin-left: 800px;">
+      <ul class="nav navbar-nav" style="margin-left: 600px;">
         <li class="nav-item dropdown" style="height: 50px;">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="img-responsive" style="background-color: white; border-radius: 20px;">
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="img-responsive btn btn-outline-warning" style="border-radius: 20px;">
                     <img src="{{url_for('static', filename=current_user.pic_path)}}" width="30" height="30" alt="" style="border-radius: 20px;">
                 </div>
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="color: white;">
               <a class="dropdown-item" href="{{url_for('main.profile', uname=current_user.username)}}">Profile</a>
               <a class="dropdown-item" href="{{url_for('auth.logout')}}">Log Out</a>
             </div>
         </li>
       </ul>
       {% else %}
-      <ul class="navbar-nav">
-          <li><a href="{{url_for('auth.login')}}">Login</a></li>
+      <ul class="navbar-nav" style="margin-left:600px">
+          <li><a class="btn btn-outline-dark" href="{{url_for('auth.login')}}">Login</a></li>
       </ul>
       {% endif%}
     </div>

@@ -11,17 +11,15 @@
 
 {% block content %}
 {{ fontawesome_html() }} <!--Font Awesome-->
-<div class="container">
+<div class="profilePic"> 
+    <div class="profileHeader" style="background-image:url('/static/navbar.jpeg');"></div>
+</div>
+<div class="container" style="margin-top: 100px;">
     <div class="row" style="margin-top: 30px;">
-
-
         <div class="col-md-4">
             <div class="container-fluid">
-                <img src="{{url_for('static', filename=user.pic_path)}}" alt="Profile Photo" width="350" height="100" class="img-thumbnail rounded"> 
+                <img src="{{url_for('static', filename=user.pic_path)}}" alt="Profile Photo" width="320" height="200" class="img-responsive" style="border-radius: 30px; border:5px solid #DFE0E2;"> 
             </div>
-    
-            
-
             {% if user == current_user %}
             <div class="container">
                 <form action="{{url_for('main.update_pic', uname=user.username)}}" method="post" enctype="multipart/form-data">
@@ -33,8 +31,31 @@
                           
                             <input type="file" class="custom-file-input" id="inputGroupFile01" name="photo" required>
                             <label class="custom-file-label btn btn-success" for="inputGroupFile01"></label>
-                    
- 
+                            <div class="container">
+                                <h6 class="lead">Username: {{user.username | capitalize }}</h6>
+                            </div>
+                            <div class="container">
+                                <!--Displaying user bio-->
+                                <span class="lead">Bio: </span>
+                                <div class="bio">
+                                    <small class="bioText">
+                                        {% if user.bio %}
+                                            <p style="font-size: 15px;" >{{user.bio}}</p>
+                                    
+                                        {% else%}
+                                            <p class="text-danger" class="lead">No bio to display.</p>
+                                        {% endif %}
+                                    </small>
+                                </div>
+                                {% if user == current_user %}
+                                    <a class="btn btn-info" href="{{url_for('main.update_profile', uname=user.username)}}">
+                                        <i class="fas fa-user-edit">Edit</i>
+                                    </a>
+                                {% endif %}
+                                
+                            </div>
+
+                            
                         </div>
                     </div>
                 </form>
@@ -45,31 +66,10 @@
         <!--Displaying Username-->
         <div class="col-md-4">
             <div container="jumbotron">
-                <div class="container">
-                    <h6 class="lead">{{user.username | capitalize }}</h6>
-                </div>
-            </div>
-            
-            <div class="container">
-                <!--Displaying user bio-->
-                <span>Bio: </span>
-                <div class="bio">
-                    <small class="bioText">
-                        {% if user.bio %}
-                            <p style="font-size: 15px;">{{user.bio}}</p>
-                    
-                        {% else%}
-                            <p class="text-danger">No bio to display.</p>
-                        {% endif %}
-                    </small>
-                </div>
-                {% if user == current_user %}
-                    <a href="{{url_for('main.update_profile', uname=user.username)}}">
-                        <i class="fas fa-user-edit">Edit</i>
-                    </a>
-                {% endif %}
                 
             </div>
+            
+           
         </div>
 
         <!--Display profile photo-->
