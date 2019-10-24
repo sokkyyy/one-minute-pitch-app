@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
+<!--Styles Block-->
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300i&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"> </div>
-            <div class="col-md-8">
-
-                {{wtf.quick_form(register_form)}}
-
-            </div>
-        <div class="col-md-2"></div>
+<div class="row registerPage" style="background-image:url('/static/back.jpeg')">
+    <div class="col-sm-6 register">
+        <div class="container registerForm">
+            {{wtf.quick_form(register_form)}}
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -6,7 +6,6 @@ class TestUser(unittest.TestCase):
     def setUp(self):
         self.new_user = User(username="ray",email="ndegwaray@gmail.com", password='12345',bio="www",pic_path="img/avatar.png")
 
-    
     def test_password_setter(self):
         self.assertTrue(self.new_user.pass_secure != None)
     
