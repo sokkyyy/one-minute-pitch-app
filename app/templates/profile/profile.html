@@ -31,28 +31,30 @@
                           
                             <input type="file" class="custom-file-input" id="inputGroupFile01" name="photo" required>
                             <label class="custom-file-label btn btn-success" for="inputGroupFile01"></label>
-                            <div class="container">
-                                <h6 class="lead">Username: {{user.username | capitalize }}</h6>
-                            </div>
-                            <div class="container">
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <span style="font-weight: bold;">Username: </span>{{user.username | capitalize }}
+                                </div>
                                 <!--Displaying user bio-->
-                                <span class="lead">Bio: </span>
-                                <div class="bio">
-                                    <small class="bioText">
+                                <div class="card-body">
+                                <div class="card-title" style="font-weight: bold;">BIO</div>
+                                <div class="card-body bio">
+                                    <div class="bioText">
                                         {% if user.bio %}
                                             <p style="font-size: 15px;" >{{user.bio}}</p>
                                     
                                         {% else%}
                                             <p class="text-danger" class="lead">No bio to display.</p>
                                         {% endif %}
-                                    </small>
+                                    </div>
                                 </div>
                                 {% if user == current_user %}
-                                    <a class="btn btn-info" href="{{url_for('main.update_profile', uname=user.username)}}">
+                                    <a style="margin-left:80px;" class="btn btn-warning" href="{{url_for('main.update_profile', uname=user.username)}}">
                                         <i class="fas fa-user-edit">Edit</i>
                                     </a>
                                 {% endif %}
-                                
+                                </div>
                             </div>
 
                             
@@ -63,31 +65,20 @@
                 
             {% endif%}
         </div>
-        <!--Displaying Username-->
-        <div class="col-md-4">
-            <div container="jumbotron">
-                
+
+        <div class="col-sm-6" style="margin-left: 70px;">   
+            <div class="pitches">
+                <h3 style="margin-left: 40px; text-align: center;">SUBMITTED PITCHES</h3>
+
+
+                {{macro.profilePitches(pitches)}}
             </div>
-            
-           
         </div>
+
 
         <!--Display profile photo-->
         
 
-        <div class="container">
-            <div class="row ">
-                <div class="col-sm-3"></div>
-                    
-                    <div class="pitches">
-                            <h3 style="margin-left: 40px;">Submitted Pitches:</h3>
-                        {{macro.displayPitches(pitches)}}
-                    </div>
-                </div>
-                
-            </div>
-            
-        </div>
     </div>
 </div>
 {% endblock %}

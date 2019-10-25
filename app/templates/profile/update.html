@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+<!--Styles Block-->
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/update.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+
 {% block content %}
-<div class="container">
-    {{wtf.quick_form(update_form)}}
+<div class="row">
+    <div class="col-sm-6 pic" style="background-image:url('/static/navbar.jpeg')"></div>
+    
+    <div class="col-sm-6">
+        <div class="form">
+            <div class="jumbotron">
+                <div class="container">{{wtf.quick_form(update_form)}}</div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

@@ -1,0 +1,18 @@
+body,html {
+    height: 100%;
+    background-color: #DFE0E2;
+}
+.pic {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 550px;
+}
+.form {
+    border: 1px solid gray;
+    height: 250px;
+}
+.ray {
+    width: 70%;
+    height: 30%;
+}

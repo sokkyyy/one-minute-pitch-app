@@ -15,9 +15,8 @@ body {
 }
 .bio{
     width: 300px;
-    height: 150px;
-    border: 1px solid grey;
-    border-radius: 10px;
+
+
 }
 .holder{
     margin: 20px;
@@ -42,5 +41,6 @@ body {
     margin: 10px;
 }
 .pitches{
+    margin-top:50px;
 
 }

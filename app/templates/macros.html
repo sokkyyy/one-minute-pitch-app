@@ -45,3 +45,46 @@
 </div>
 </div>
 {% endmacro%}
+
+{% macro profilePitches(pitches)%}
+{%for pitch in pitches%}
+<div class="card holder" >
+        <div class="cardDisplay">
+            <div class="col-sm-3 img-responsive image">
+                <img src="{{url_for('static', filename=pitch.user.pic_path)}}" alt="" class="img-responsive" width="100px" height="150px">
+            </div>
+        
+            <div class="col-sm-6 pitchDetails" >
+                
+                <p>@<a href="{{url_for('main.profile',uname=pitch.user.username)}}" class="username">{{pitch.user.username}}</a></p>
+                <hr>
+                <small>
+                    <p>Category: {{pitch.pitch_category|capitalize}}</p>
+                    <hr>
+                    <p>Posted on: {{ pitch.posted.strftime('%d/%m/%Y') }}</p>
+                </small>
+            </div>
+        </div>
+
+        <hr>
+        <div class="col-sm-12">
+            <small>
+                <p>{{pitch.pitch_details}}</p>
+            </small>
+        </div>
+        <hr>
+        <div class="col-sm-12 footer">
+            <a class="btn btn-primary" href="{{url_for('main.comments', pitch_id=pitch.id)}}">
+                <i class="fas fa-comments"></i>
+            </a>
+            <a class="btn btn-success" href="{{url_for('main.vote', pitch_id=pitch.id,action='like')}}">
+                <i class="fas fa-thumbs-up"><small style="margin-left: 5px;">{{pitch.upvote}}</small></i>
+            </a>
+            <a class="btn btn-danger" href="{{url_for('main.vote', pitch_id=pitch.id,action='dislike')}}">
+                <i class="fas fa-thumbs-down"><small style="margin-left: 5px;">{{pitch.downvote}}</small></i>
+            </a>
+        </div>
+</div>
+
+{% endfor %}
+{% endmacro%}
