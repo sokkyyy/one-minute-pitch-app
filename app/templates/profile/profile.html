@@ -18,19 +18,20 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-4">
             <div class="container-fluid">
-                <img src="{{url_for('static', filename=user.pic_path)}}" alt="Profile Photo" width="320" height="200" class="img-responsive" style="border-radius: 30px; border:5px solid #DFE0E2;"> 
+                <img src="{{url_for('static', filename=user.pic_path)}}" alt="Profile Photo" width="320" height="200" class="img-responsive" style="border-radius: 30px; border:5px solid #DFE0E2;background-color: #DFE0E2;"> 
             </div>
-            {% if user == current_user %}
             <div class="container">
                 <form action="{{url_for('main.update_pic', uname=user.username)}}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="input-group mb-3">
+                            {% if user == current_user %}
                             <div class="input-group-prepend">
                               <button type="submit" class="input-group-text btn btn-primary">Upload New Pic</button>
                             </div>
                           
                             <input type="file" class="custom-file-input" id="inputGroupFile01" name="photo" required>
                             <label class="custom-file-label btn btn-success" for="inputGroupFile01"></label>
+                            {% endif %}
                             
                             <div class="card">
                                 <div class="card-header">
@@ -56,22 +57,22 @@
                                 {% endif %}
                                 </div>
                             </div>
-
-                            
                         </div>
                     </div>
                 </form>
             </div>
-                
-            {% endif%}
         </div>
 
-        <div class="col-sm-6" style="margin-left: 70px;">   
+        <div class="col-sm-6" style="margin-left: 70px; ">   
             <div class="pitches">
                 <h3 style="margin-left: 40px; text-align: center;">SUBMITTED PITCHES</h3>
-
-
+                {% if pitches|count == 0 %}
+                <div class="btn btn-secondary" style="margin-left: 200px;">
+                    No Pitches Submitted
+                </div>
+                {%else%}
                 {{macro.profilePitches(pitches)}}
+                {%endif%}
             </div>
         </div>
 

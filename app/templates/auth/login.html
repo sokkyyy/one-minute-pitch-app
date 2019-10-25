@@ -16,16 +16,17 @@
 <div class="login" style="background-image:url('/static/navbar.jpeg');"> 
     <div class="row">
       <div class="col-md-8">
-       <!--Flash message -->
+      
+
+        <!-- Login form -->
+        <div class="container loginForm">
+             <!--Flash message -->
         {% for message in get_flashed_messages() %}
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {{ message }}
         </div>
         {% endfor %}
-
-        <!-- Login form -->
-        <div class="container loginForm">
           <div class="container" style="padding:10px;">
           {{wtf.quick_form(login_form)}}
           </div>
